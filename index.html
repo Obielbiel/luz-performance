@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Dr. Vinícius Luzardi - Especialista em Medicina de Performance, Terapias Hormonais e Weight Loss. Agende sua consulta e transforme sua saúde."/>
+<title>Luz Performance - Dr. Vinícius Luzardi | Medicina de Performance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-navy': '#0A111A',
+            'brand-gold': '#C5A059',
+            'brand-gold-light': '#D4AF37',
+            'brand-dark-blue': '#070D14',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styling">
+    body {
+      background-color: #0A111A;
+      color: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+    }
+    .text-gradient-gold {
+      background: linear-gradient(to bottom, #E6C685, #C5A059);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-border-glow {
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+    }
+    .btn-gold-glow {
+      box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+      transition: all 0.3s ease;
+    }
+    .btn-gold-glow:hover {
+      box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
+      transform: translateY(-2px);
+    }
+    .overlay-dark {
+      background: linear-gradient(0deg, rgba(10, 17, 26, 0.9) 0%, rgba(10, 17, 26, 0.4) 100%);
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-brand-navy/90 backdrop-blur-md border-b border-white/5" data-purpose="navigation">
+<div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="text-brand-gold font-bold text-xl tracking-tighter uppercase">Luz Performance</span>
+</div>
+<nav class="hidden md:flex space-x-8 text-xs font-semibold tracking-widest uppercase items-center">
+<a class="text-brand-gold border-b border-brand-gold pb-1" href="#">Início</a>
+<a class="hover:text-brand-gold transition-colors" href="#">Blog</a>
+<a class="hover:text-brand-gold transition-colors" href="#">Quem Sou Eu</a>
+<a class="hover:text-brand-gold transition-colors" href="#">Motive-se</a>
+<a class="hover:text-brand-gold transition-colors" href="#">Ferramentas</a>
+<a class="hover:text-brand-gold transition-colors" href="#">Aprender</a>
+<a class="bg-brand-gold text-brand-navy px-4 py-2 rounded-sm text-[10px] btn-gold-glow" href="#">ANALISADOR</a>
+</nav>
+<!-- Mobile Menu Toggle (Simplified) -->
+<button class="md:hidden text-brand-gold">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: HeroSection -->
+<section class="relative pt-16 pb-24 overflow-hidden" data-purpose="hero">
+<div class="container mx-auto px-4 text-center relative z-10">
+<p class="italic text-gray-400 max-w-2xl mx-auto mb-8 text-lg font-light">
+        "O que me preocupa não é o grito dos maus e sim o silêncio dos bons."
+      </p>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-gradient-gold mb-4 leading-tight">
+        WEIGHT LOSS &amp; HORMONES
+      </h1>
+<div class="space-y-1 mb-12">
+<h2 class="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase text-brand-gold/80">THE SCIENCE OF STRENGTH</h2>
+<h2 class="text-xl md:text-2xl font-light tracking-[0.2em] uppercase text-brand-gold/40">THE SCIENCE OF STRENGTH</h2>
+</div>
+<div class="flex flex-col items-center">
+<a class="bg-brand-gold text-brand-navy px-10 py-4 rounded-md font-bold tracking-widest uppercase text-sm btn-gold-glow mb-12" href="#">
+          AGENDE SUA CONSULTA
+        </a>
+<!-- Subtle background graphic implied from source image -->
+<div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-full max-w-4xl">
+<!-- SVG Placeholder for Muscle Man / Medical Line Art -->
+<svg class="fill-none stroke-brand-gold stroke-1" viewbox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M100,150 Q150,50 200,150 T300,150"></path>
+<circle cx="200" cy="80" r="30"></circle>
+</svg>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: DoctorProfile -->
+<section class="bg-brand-dark-blue border-t border-brand-gold/20" data-purpose="about-me">
+<div class="container mx-auto px-0 md:flex items-stretch">
+<!-- Portrait Column -->
+<div class="md:w-1/2 relative min-h-[500px]">
+<img alt="Dr. Vinícius Luzardi" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-75" src="images/doctor.jpg"/>
+</div>
+<!-- Content Column -->
+<div class="md:w-1/2 p-12 lg:p-20 flex flex-col justify-center">
+<div class="max-w-xl">
+<header class="mb-8">
+<h3 class="text-3xl font-serif font-bold text-brand-gold mb-1">DR. VINÍCIUS LUZARDI</h3>
+<p class="text-gray-400 text-sm tracking-widest uppercase mb-6">CRMSP 26S8S0</p>
+<h4 class="text-xl font-bold tracking-widest uppercase text-brand-gold mb-2">MEDICINA DE PERFORMANCE<br/>TERAPIAS HORMONAIS</h4>
+</header>
+<div class="space-y-6 text-gray-300 leading-relaxed font-light">
+<p>Sou Médico Generalista, formado na UCPel (Universidade Católica de Pelotas) em 2019.</p>
+<p>Atuando na sala de emergência com pacientes graves desde o primeiro dia de formado, somente na UTI nos últimos 2 anos, e, <span class="text-brand-gold font-semibold uppercase">CUIDANDO E REDUZINDO</span> danos de usuários de hormônios desde o primeiro dia de formado.</p>
+<p>Fui linha de frente durante toda a pandemia, acumulando experiência sobre o paciente criticamente enfermo enxergando o paciente como uma singularidade e não um amontoado de células (ou de órgãos ou de sistemas) como é observado na metodologia tradicional da <span class="text-brand-gold font-semibold uppercase italic">VELHA E ULTRAPASSADA ESCOLA DE MEDICINA.</span></p>
+<p class="italic">Essa experiência holística (centrada no paciente) é o que diferencia seu método.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: DoctorProfile -->
+<!-- BEGIN: FeatureGrid -->
+<section class="py-24 bg-brand-navy" data-purpose="features">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer">
+<div class="flex-shrink-0 w-16 h-16 border border-brand-gold/30 rounded flex items-center justify-center">
+<svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">FERRAMENTAS ANALÍTICAS</h5>
+<p class="text-gray-400 text-sm">Acesse nosso analisador exclusivo para sua performance.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer overflow-hidden">
+<div class="flex-shrink-0 w-24 h-16 relative rounded overflow-hidden">
+<img alt="Blog Thumb" class="absolute inset-0 w-full h-full object-cover" src="images/blog-thumb.jpg"/>
+</div>
+<div>
+<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">ÚLTIMOS ARTIGOS</h5>
+<p class="text-gray-400 text-sm">Será mesmo que a reposição hormonal aumenta o risco de ter infarto?</p>
+<span class="text-[10px] text-gray-500 uppercase mt-2 block">17 de março de 2028. Descubra a verdade...</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer">
+<div class="flex-shrink-0 w-16 h-16 border border-brand-gold/30 rounded flex items-center justify-center">
+<svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">DETALHES DO WEBINAR</h5>
+<p class="text-gray-400 text-sm">Próxima Sessão: <span class="text-white">24 de Outubro, 20:00h</span></p>
+<span class="text-[10px] text-brand-gold uppercase mt-2 block font-bold">Inscrições Abertas.</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer">
+<div class="flex-shrink-0 w-16 h-16 border border-brand-gold/30 rounded flex items-center justify-center">
+<svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">COMUNIDADE</h5>
+<p class="text-gray-400 text-sm">Conecte-se com outros membros em nossa rede exclusiva.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FeatureGrid -->
+<!-- BEGIN: ConversionSection -->
+<section class="relative py-32 overflow-hidden" data-purpose="cta-bottom">
+<!-- Parallax-like Background Container -->
+<div class="absolute inset-0 z-0">
+<img alt="Heavy training background" class="w-full h-full object-cover opacity-30 brightness-50" src="images/training-bg.jpg"/>
+<div class="absolute inset-0 overlay-dark"></div>
+</div>
+<div class="container mx-auto px-4 relative z-10 text-center">
+<h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Outros Conteúdo E Ferramentas</h3>
+<p class="text-gray-300 max-w-2xl mx-auto mb-16 text-lg">
+        Explore conteúdos exclusivos, ferramentas úteis e cursos para aprimorar seus conhecimentos e práticas.
+      </p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-8">
+<!-- Analisador Button -->
+<a class="flex items-center justify-center space-x-4 bg-white text-black px-12 py-5 rounded shadow-2xl hover:bg-gray-100 transition-all min-w-[320px]" href="#">
+<svg class="w-10 h-10" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.183.244l-.28.19a2 2 0 00-.596.892L2.222 21.41a.5.5 0 00.477.653H21.3a.5.5 0 00.477-.653l-1.768-4.856a2 2 0 00-.58-.893l-.28-.192zM12 11V3m0 0l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<circle cx="12" cy="11" r="3" stroke-width="1.5"></circle>
+</svg>
+<span class="text-2xl font-bold tracking-tight">ANALISADOR</span>
+</a>
+<!-- Agende Button -->
+<a class="bg-brand-gold text-brand-navy px-12 py-5 rounded font-bold text-xl tracking-wider uppercase btn-gold-glow min-w-[320px]" href="#">
+          AGENDE SUA CONSULTA
+        </a>
+</div>
+</div>
+</section>
+<!-- END: ConversionSection -->
+<!-- BEGIN: Footer -->
+<footer class="bg-brand-dark-blue py-12 border-t border-white/5" data-purpose="footer">
+<div class="container mx-auto px-4">
+<div class="flex flex-col items-center justify-center text-center space-y-8">
+<div class="text-brand-gold font-bold text-2xl uppercase tracking-tighter">LUZ PERFORMANCE</div>
+<div class="flex space-x-8 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
+<a class="hover:text-brand-gold transition-colors" href="#">Copyright © 2026 Vinicius Luzardi Lopes</a>
+<span class="text-gray-800">|</span>
+<a class="hover:text-brand-gold transition-colors" href="#">Política de Privacidade</a>
+</div>
+<div class="flex space-x-6">
+<a class="text-gray-500 hover:text-brand-gold transition-colors" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<a class="text-gray-500 hover:text-brand-gold transition-colors" href="#">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>
