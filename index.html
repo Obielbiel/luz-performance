@@ -1,238 +1,782 @@
 <!DOCTYPE html>
-
-<html lang="pt-BR"><head>
+<html lang="pt-BR">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta name="description" content="Dr. Vinícius Luzardi - Especialista em Medicina de Performance, Terapias Hormonais e Weight Loss. Agende sua consulta e transforme sua saúde."/>
 <title>Luz Performance - Dr. Vinícius Luzardi | Medicina de Performance</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'brand-navy': '#0A111A',
-            'brand-gold': '#C5A059',
-            'brand-gold-light': '#D4AF37',
-            'brand-dark-blue': '#070D14',
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
-<style data-purpose="custom-styling">
-    body {
-      background-color: #0A111A;
-      color: #FFFFFF;
-      font-family: 'Inter', sans-serif;
-    }
-    .text-gradient-gold {
-      background: linear-gradient(to bottom, #E6C685, #C5A059);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gold-border-glow {
-      border: 1px solid rgba(197, 160, 89, 0.3);
-      box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
-    }
-    .btn-gold-glow {
-      box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
-      transition: all 0.3s ease;
-    }
-    .btn-gold-glow:hover {
-      box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
-      transform: translateY(-2px);
-    }
-    .overlay-dark {
-      background: linear-gradient(0deg, rgba(10, 17, 26, 0.9) 0%, rgba(10, 17, 26, 0.4) 100%);
-    }
-  </style>
+
+<!-- Fonts: Cormorant Garamond (elegância editorial) + Playfair Display + DM Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<style>
+  /* ─── Design Tokens ─────────────────────────────────── */
+  :root {
+    --navy:        #0A111A;
+    --navy-deep:   #070D14;
+    --gold:        #C5A059;
+    --gold-light:  #E6C685;
+    --gold-dim:    rgba(197,160,89,0.15);
+    --gold-border: rgba(197,160,89,0.25);
+    --white:       #ffffff;
+    --muted:       rgba(255,255,255,0.45);
+    --ff-display:  'Playfair Display', Georgia, serif;
+    --ff-accent:   'Cormorant Garamond', Georgia, serif;
+    --ff-body:     'DM Sans', system-ui, sans-serif;
+    --ease-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ─── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--white);
+    font-family: var(--ff-body);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 2px; }
+
+  /* ─── Animations ────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes lineExpand {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.55; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  .anim-quote  { animation: fadeIn  0.9s var(--ease-expo) 0.1s both; }
+  .anim-h1     { animation: fadeUp  1.1s var(--ease-expo) 0.3s both; }
+  .anim-sub    { animation: fadeUp  0.9s var(--ease-expo) 0.65s both; }
+  .anim-cta    { animation: fadeUp  0.9s var(--ease-expo) 0.9s both; }
+
+  /* ─── Grain texture overlay ─────────────────────────── */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.45;
+  }
+
+  /* ─── Gold gradient text ────────────────────────────── */
+  .text-gold-grad {
+    background: linear-gradient(160deg, var(--gold-light) 0%, var(--gold) 60%, #9A7A40 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ─── Hero ambient glow ─────────────────────────────── */
+  .hero-glow {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 420px;
+    background: radial-gradient(ellipse, rgba(197,160,89,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    animation: glowPulse 5s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  /* ─── Gold divider line ─────────────────────────────── */
+  .gold-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform-origin: center;
+    animation: lineExpand 1.2s var(--ease-expo) 1s both;
+  }
+
+  /* ─── Navigation ────────────────────────────────────── */
+  .nav-link {
+    position: relative;
+    font-family: var(--ff-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.25s;
+    padding-bottom: 2px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s var(--ease-expo);
+  }
+  .nav-link:hover { color: var(--gold); }
+  .nav-link:hover::after { width: 100%; }
+  .nav-link.active { color: var(--gold); }
+  .nav-link.active::after { width: 100%; }
+
+  .nav-btn {
+    font-family: var(--ff-body);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--navy-deep);
+    padding: 9px 18px;
+    text-decoration: none;
+    transition: all 0.3s var(--ease-expo);
+    box-shadow: 0 0 18px rgba(197,160,89,0.35);
+  }
+  .nav-btn:hover {
+    background: var(--gold-light);
+    box-shadow: 0 0 32px rgba(197,160,89,0.55);
+    transform: translateY(-1px);
+  }
+
+  /* ─── Hero ──────────────────────────────────────────── */
+  .hero-quote {
+    font-family: var(--ff-accent);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+  }
+
+  .hero-title {
+    font-family: var(--ff-display);
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-sub-1 {
+    font-family: var(--ff-accent);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(197,160,89,0.9);
+  }
+  .hero-sub-2 {
+    font-family: var(--ff-body);
+    font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(197,160,89,0.35);
+  }
+
+  .cta-primary {
+    display: inline-block;
+    font-family: var(--ff-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--gold);
+    color: var(--navy-deep);
+    padding: 18px 44px;
+    box-shadow: 0 0 24px rgba(197,160,89,0.4), 0 4px 20px rgba(0,0,0,0.4);
+    transition: all 0.35s var(--ease-expo);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.5s var(--ease-expo);
+  }
+  .cta-primary:hover {
+    box-shadow: 0 0 40px rgba(197,160,89,0.65), 0 8px 30px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+  }
+  .cta-primary:hover::before { transform: translateX(100%); }
+
+  /* ─── Doctor Section ────────────────────────────────── */
+  .doctor-section {
+    background: var(--navy-deep);
+    border-top: 1px solid var(--gold-border);
+  }
+
+  .doctor-accent-line {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    bottom: 60px;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .doctor-name {
+    font-family: var(--ff-display);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+  }
+  .doctor-crm {
+    font-family: var(--ff-body);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .doctor-specialty {
+    font-family: var(--ff-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.9;
+  }
+  .doctor-bio p {
+    font-family: var(--ff-body);
+    font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+    color: rgba(255,255,255,0.6);
+    line-height: 1.9;
+  }
+  .doctor-highlight {
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .doctor-italic {
+    font-family: var(--ff-accent);
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.95rem;
+  }
+
+  /* ─── Feature Cards ─────────────────────────────────── */
+  .feature-card {
+    position: relative;
+    border: 1px solid var(--gold-border);
+    box-shadow: 0 0 0 rgba(197,160,89,0);
+    padding: 2.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    cursor: pointer;
+    transition: all 0.4s var(--ease-expo);
+    overflow: hidden;
+    background: transparent;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(197,160,89,0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .feature-card:hover {
+    border-color: rgba(197,160,89,0.55);
+    box-shadow: 0 0 28px rgba(197,160,89,0.12), inset 0 0 30px rgba(197,160,89,0.03);
+    transform: translateY(-3px);
+  }
+  .feature-card:hover::before { opacity: 1; }
+
+  .card-number {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-family: var(--ff-accent);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(197,160,89,0.07);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: color 0.4s;
+    user-select: none;
+  }
+  .feature-card:hover .card-number { color: rgba(197,160,89,0.13); }
+
+  .card-icon-wrap {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--ease-expo);
+  }
+  .feature-card:hover .card-icon-wrap {
+    border-color: rgba(197,160,89,0.6);
+    background: rgba(197,160,89,0.07);
+  }
+
+  .card-title {
+    font-family: var(--ff-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .card-body {
+    font-family: var(--ff-body);
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+  .card-tag {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  /* ─── CTA Section ───────────────────────────────────── */
+  .cta-section-title {
+    font-family: var(--ff-display);
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .cta-section-body {
+    font-family: var(--ff-accent);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .btn-white {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: rgba(255,255,255,0.95);
+    color: var(--navy-deep);
+    padding: 20px 44px;
+    font-family: var(--ff-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    min-width: 280px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: all 0.35s var(--ease-expo);
+  }
+  .btn-white:hover {
+    background: #fff;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+  }
+
+  .btn-gold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    color: var(--navy-deep);
+    padding: 20px 44px;
+    font-family: var(--ff-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    min-width: 280px;
+    box-shadow: 0 0 28px rgba(197,160,89,0.45), 0 8px 20px rgba(0,0,0,0.3);
+    transition: all 0.35s var(--ease-expo);
+  }
+  .btn-gold:hover {
+    box-shadow: 0 0 44px rgba(197,160,89,0.65), 0 12px 28px rgba(0,0,0,0.4);
+    transform: translateY(-3px);
+  }
+
+  /* ─── Footer ────────────────────────────────────────── */
+  footer {
+    background: var(--navy-deep);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 3.5rem 0;
+  }
+  .footer-logo {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .footer-link {
+    font-family: var(--ff-body);
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .footer-link:hover { color: var(--gold); }
+  .footer-social {
+    color: rgba(255,255,255,0.3);
+    transition: color 0.25s;
+  }
+  .footer-social:hover { color: var(--gold); }
+
+  /* ─── Geometric decorative lines ────────────────────── */
+  .geo-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .geo-lines line {
+    stroke: rgba(197,160,89,0.06);
+    stroke-width: 0.5;
+  }
+
+  /* ─── Floating geo shape ─────────────────────────────── */
+  .float-shape {
+    animation: float 7s ease-in-out infinite;
+    opacity: 0.08;
+  }
+
+  /* ─── Responsive utils ──────────────────────────────── */
+  @media (max-width: 768px) {
+    .doctor-section .flex-md { flex-direction: column; }
+    .hero-title { font-size: clamp(2.5rem, 13vw, 4rem); }
+    .btn-white, .btn-gold { min-width: 260px; }
+  }
+</style>
 </head>
-<body class="antialiased">
-<!-- BEGIN: MainHeader -->
-<header class="sticky top-0 z-50 bg-brand-navy/90 backdrop-blur-md border-b border-white/5" data-purpose="navigation">
-<div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
-<div class="flex items-center space-x-2">
-<span class="text-brand-gold font-bold text-xl tracking-tighter uppercase">Luz Performance</span>
-</div>
-<nav class="hidden md:flex space-x-8 text-xs font-semibold tracking-widest uppercase items-center">
-<a class="text-brand-gold border-b border-brand-gold pb-1" href="#">Início</a>
-<a class="hover:text-brand-gold transition-colors" href="#">Blog</a>
-<a class="hover:text-brand-gold transition-colors" href="#">Quem Sou Eu</a>
-<a class="hover:text-brand-gold transition-colors" href="#">Motive-se</a>
-<a class="hover:text-brand-gold transition-colors" href="#">Ferramentas</a>
-<a class="hover:text-brand-gold transition-colors" href="#">Aprender</a>
-<a class="bg-brand-gold text-brand-navy px-4 py-2 rounded-sm text-[10px] btn-gold-glow" href="#">ANALISADOR</a>
-</nav>
-<!-- Mobile Menu Toggle (Simplified) -->
-<button class="md:hidden text-brand-gold">
-<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-</div>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════ -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(10,17,26,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.04);">
+  <div style="max-width:1280px;margin:0 auto;padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <span style="display:block;width:28px;height:1px;background:var(--gold);opacity:0.6;"></span>
+      <span style="font-family:var(--ff-display);font-size:1rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);">Luz Performance</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:2.5rem;">
+      <a class="nav-link active" href="#">Início</a>
+      <a class="nav-link" href="#">Blog</a>
+      <a class="nav-link" href="#">Quem Sou Eu</a>
+      <a class="nav-link" href="#">Motive-se</a>
+      <a class="nav-link" href="#">Ferramentas</a>
+      <a class="nav-link" href="#">Aprender</a>
+      <a class="nav-btn" href="#">Analisador</a>
+    </nav>
+    <!-- Mobile -->
+    <button style="display:none;background:none;border:none;color:var(--gold);cursor:pointer;" aria-label="Menu">
+      <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+    </button>
+  </div>
 </header>
-<!-- END: MainHeader -->
-<!-- BEGIN: HeroSection -->
-<section class="relative pt-16 pb-24 overflow-hidden" data-purpose="hero">
-<div class="container mx-auto px-4 text-center relative z-10">
-<p class="italic text-gray-400 max-w-2xl mx-auto mb-8 text-lg font-light">
-        "O que me preocupa não é o grito dos maus e sim o silêncio dos bons."
-      </p>
-<h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-gradient-gold mb-4 leading-tight">
-        EMAGRECIMENTO &amp; HORMÔNIOS
-      </h1>
-<div class="space-y-1 mb-12">
-<h2 class="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase text-brand-gold/80">THE SCIENCE OF STRENGTH</h2>
-<h2 class="text-xl md:text-2xl font-light tracking-[0.2em] uppercase text-brand-gold/40">A MEDICINA DA ALTA PERFORMANCE</h2>
-</div>
-<div class="flex flex-col items-center">
-<a class="bg-brand-gold text-brand-navy px-10 py-4 rounded-md font-bold tracking-widest uppercase text-sm btn-gold-glow mb-12" href="#">
-          AGENDE SUA CONSULTA
-        </a>
-<!-- Subtle background graphic implied from source image -->
-<div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-full max-w-4xl">
-<!-- SVG Placeholder for Muscle Man / Medical Line Art -->
-<svg class="fill-none stroke-brand-gold stroke-1" viewbox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-<path d="M100,150 Q150,50 200,150 T300,150"></path>
-<circle cx="200" cy="80" r="30"></circle>
-</svg>
-</div>
-</div>
-</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════ -->
+<section class="grain" style="position:relative;padding:7rem 2rem 8rem;overflow:hidden;text-align:center;">
+
+  <!-- Ambient glow -->
+  <div class="hero-glow"></div>
+
+  <!-- Geometric decorative SVG -->
+  <svg class="geo-lines" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="0" y1="0" x2="720" y2="600"/>
+    <line x1="1440" y1="0" x2="720" y2="600"/>
+    <line x1="0" y1="300" x2="1440" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="1240" y1="0" x2="1240" y2="600"/>
+  </svg>
+
+  <!-- Floating shape -->
+  <svg class="float-shape" style="position:absolute;right:8%;top:20%;width:180px;" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <polygon points="90,10 170,170 10,170" fill="none" stroke="var(--gold)" stroke-width="0.8"/>
+  </svg>
+  <svg class="float-shape" style="position:absolute;left:6%;bottom:20%;width:120px;animation-delay:-3s;" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="10" y="10" width="100" height="100" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
+  </svg>
+
+  <div style="position:relative;z-index:2;max-width:960px;margin:0 auto;">
+    <!-- Quote -->
+    <p class="hero-quote anim-quote" style="max-width:600px;margin:0 auto 3rem;">
+      "O que me preocupa não é o grito dos maus e sim o silêncio dos bons."
+    </p>
+
+    <!-- Gold divider -->
+    <div class="gold-line" style="max-width:80px;margin:0 auto 2.5rem;"></div>
+
+    <!-- Main title -->
+    <h1 class="hero-title text-gold-grad anim-h1" style="margin-bottom:2rem;">
+      Emagrecimento<br/>&amp; Hormônios
+    </h1>
+
+    <!-- Subtitles -->
+    <div class="anim-sub" style="margin-bottom:3.5rem;">
+      <p class="hero-sub-1" style="margin-bottom:0.6rem;">The Science of Strength</p>
+      <p class="hero-sub-2">A Medicina da Alta Performance</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="anim-cta">
+      <a class="cta-primary" href="#">Agende Sua Consulta</a>
+    </div>
+  </div>
+
 </section>
-<!-- END: HeroSection -->
-<!-- BEGIN: DoctorProfile -->
-<section class="bg-brand-dark-blue border-t border-brand-gold/20" data-purpose="about-me">
-<div class="container mx-auto px-0 md:flex items-stretch">
-<!-- Portrait Column -->
-<div class="md:w-1/2 relative min-h-[600px] overflow-hidden">
-<img alt="Dr. Vinícius Luzardi" class="absolute inset-0 w-full h-full object-cover object-center" src="images/doctor.jpg" style="object-position: center top;"/>
-<div class="absolute inset-0" style="background: linear-gradient(to right, transparent 70%, #070D14 100%);"></div>
-</div>
-<!-- Content Column -->
-<div class="md:w-1/2 p-12 lg:p-20 flex flex-col justify-center">
-<div class="max-w-xl">
-<header class="mb-8">
-<h3 class="text-3xl font-serif font-bold text-brand-gold mb-1">DR. VINÍCIUS LUZARDI</h3>
-<p class="text-gray-400 text-sm tracking-widest uppercase mb-6">CRMSP 26S8S0</p>
-<h4 class="text-xl font-bold tracking-widest uppercase text-brand-gold mb-2">MEDICINA DE PERFORMANCE<br/>TERAPIAS HORMONAIS</h4>
-</header>
-<div class="space-y-6 text-gray-300 leading-relaxed font-light">
-<p>Sou Médico Generalista, formado na UCPel (Universidade Católica de Pelotas) em 2019.</p>
-<p>Atuando na sala de emergência com pacientes graves desde o primeiro dia de formado, somente na UTI nos últimos 2 anos, e, <span class="text-brand-gold font-semibold uppercase">CUIDANDO E REDUZINDO</span> danos de usuários de hormônios desde o primeiro dia de formado.</p>
-<p>Fui linha de frente durante toda a pandemia, acumulando experiência sobre o paciente criticamente enfermo enxergando o paciente como uma singularidade e não um amontoado de células (ou de órgãos ou de sistemas) como é observado na metodologia tradicional da <span class="text-brand-gold font-semibold uppercase italic">VELHA E ULTRAPASSADA ESCOLA DE MEDICINA.</span></p>
-<p class="italic">Essa experiência holística (centrada no paciente) é o que diferencia seu método.</p>
-</div>
-</div>
-</div>
-</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DOCTOR PROFILE
+════════════════════════════════════════════════════════ -->
+<section class="doctor-section" data-purpose="about-me">
+  <div style="max-width:1280px;margin:0 auto;display:flex;min-height:680px;" class="flex-md">
+
+    <!-- Portrait -->
+    <div style="flex:0 0 50%;position:relative;overflow:hidden;min-height:580px;">
+      <img
+        alt="Dr. Vinícius Luzardi"
+        src="images/doctor.jpg"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;"
+      />
+      <!-- Right-side fade to content -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, transparent 55%, var(--navy-deep) 100%);"></div>
+      <!-- Bottom fade -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, var(--navy-deep) 0%, transparent 30%);"></div>
+    </div>
+
+    <!-- Content -->
+    <div style="flex:0 0 50%;padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;position:relative;">
+      <!-- Gold accent line -->
+      <div class="doctor-accent-line"></div>
+
+      <div style="padding-left:1.5rem;">
+        <header style="margin-bottom:2.5rem;">
+          <p class="doctor-crm" style="margin-bottom:0.75rem;">CRMSP 26S8S0</p>
+          <h2 class="doctor-name" style="margin-bottom:1rem;">Dr. Vinícius Luzardi</h2>
+          <div style="width:40px;height:1px;background:var(--gold);margin-bottom:1.2rem;opacity:0.7;"></div>
+          <p class="doctor-specialty">Medicina de Performance<br/>Terapias Hormonais</p>
+        </header>
+
+        <div class="doctor-bio" style="display:flex;flex-direction:column;gap:1.2rem;">
+          <p>Sou Médico Generalista, formado na UCPel (Universidade Católica de Pelotas) em 2019.</p>
+          <p>
+            Atuando na sala de emergência com pacientes graves desde o primeiro dia de formado,
+            somente na UTI nos últimos 2 anos, e,
+            <span class="doctor-highlight">Cuidando e Reduzindo</span>
+            danos de usuários de hormônios desde o primeiro dia de formado.
+          </p>
+          <p>
+            Fui linha de frente durante toda a pandemia, acumulando experiência sobre o paciente
+            criticamente enfermo enxergando o paciente como uma singularidade e não um amontoado
+            de células como é observado na metodologia tradicional da
+            <span class="doctor-highlight" style="font-style:italic;">Velha e Ultrapassada Escola de Medicina.</span>
+          </p>
+          <p class="doctor-italic">
+            Essa experiência holística (centrada no paciente) é o que diferencia seu método.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
-<!-- END: DoctorProfile -->
-<!-- BEGIN: FeatureGrid -->
-<section class="py-24 bg-brand-navy" data-purpose="features">
-<div class="container mx-auto px-4">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- Card 1 -->
-<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer">
-<div class="flex-shrink-0 w-16 h-16 border border-brand-gold/30 rounded flex items-center justify-center">
-<svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-</div>
-<div>
-<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">FERRAMENTAS ANALÍTICAS</h5>
-<p class="text-gray-400 text-sm">Acesse nosso analisador exclusivo para sua performance.</p>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer overflow-hidden">
-<div class="flex-shrink-0 w-24 h-16 relative rounded overflow-hidden">
-<img alt="Blog Thumb" class="absolute inset-0 w-full h-full object-cover" src="images/blog-thumb.jpg"/>
-</div>
-<div>
-<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">ÚLTIMOS ARTIGOS</h5>
-<p class="text-gray-400 text-sm">Será mesmo que a reposição hormonal aumenta o risco de ter infarto?</p>
-<span class="text-[10px] text-gray-500 uppercase mt-2 block">17 de março de 2028. Descubra a verdade...</span>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer">
-<div class="flex-shrink-0 w-16 h-16 border border-brand-gold/30 rounded flex items-center justify-center">
-<svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-</div>
-<div>
-<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">DETALHES DO WEBINAR</h5>
-<p class="text-gray-400 text-sm">Próxima Sessão: <span class="text-white">24 de Outubro, 20:00h</span></p>
-<span class="text-[10px] text-brand-gold uppercase mt-2 block font-bold">Inscrições Abertas.</span>
-</div>
-</div>
-<!-- Card 4 -->
-<div class="gold-border-glow p-8 flex items-start space-x-6 hover:bg-white/5 transition-colors group cursor-pointer">
-<div class="flex-shrink-0 w-16 h-16 border border-brand-gold/30 rounded flex items-center justify-center">
-<svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
-</div>
-<div>
-<h5 class="text-xl font-bold text-brand-gold uppercase tracking-wider mb-2">COMUNIDADE</h5>
-<p class="text-gray-400 text-sm">Conecte-se com outros membros em nossa rede exclusiva.</p>
-</div>
-</div>
-</div>
-</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FEATURE GRID
+════════════════════════════════════════════════════════ -->
+<section style="padding:7rem 2rem;background:var(--navy);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;">
+
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <span class="card-number">01</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" fill="none" stroke="var(--gold)" viewBox="0 0 24 24">
+            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+          </svg>
+        </div>
+        <div>
+          <h5 class="card-title">Ferramentas Analíticas</h5>
+          <p class="card-body">Acesse nosso analisador exclusivo para sua performance.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <span class="card-number">02</span>
+        <div style="flex-shrink:0;width:80px;height:56px;position:relative;overflow:hidden;">
+          <img alt="Blog Thumb" src="images/blog-thumb.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"/>
+          <div style="position:absolute;inset:0;background:rgba(7,13,20,0.3);"></div>
+        </div>
+        <div>
+          <h5 class="card-title">Últimos Artigos</h5>
+          <p class="card-body">Será mesmo que a reposição hormonal aumenta o risco de ter infarto?</p>
+          <span class="card-tag" style="color:rgba(255,255,255,0.3);">17 de março de 2028 — Descubra a verdade...</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <span class="card-number">03</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" fill="none" stroke="var(--gold)" viewBox="0 0 24 24">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+          </svg>
+        </div>
+        <div>
+          <h5 class="card-title">Detalhes do Webinar</h5>
+          <p class="card-body">Próxima Sessão: <span style="color:var(--white);font-weight:400;">24 de Outubro, 20:00h</span></p>
+          <span class="card-tag" style="color:var(--gold);font-weight:500;">Inscrições Abertas.</span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feature-card">
+        <span class="card-number">04</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" fill="none" stroke="var(--gold)" viewBox="0 0 24 24">
+            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+          </svg>
+        </div>
+        <div>
+          <h5 class="card-title">Comunidade</h5>
+          <p class="card-body">Conecte-se com outros membros em nossa rede exclusiva.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
-<!-- END: FeatureGrid -->
-<!-- BEGIN: ConversionSection -->
-<section class="relative py-32 overflow-hidden" data-purpose="cta-bottom">
-<!-- Parallax-like Background Container -->
-<div class="absolute inset-0 z-0">
-<img alt="Heavy training background" class="w-full h-full object-cover opacity-30 brightness-50" src="images/training-bg.jpg"/>
-<div class="absolute inset-0 overlay-dark"></div>
-</div>
-<div class="container mx-auto px-4 relative z-10 text-center">
-<h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Outros Conteúdo E Ferramentas</h3>
-<p class="text-gray-300 max-w-2xl mx-auto mb-16 text-lg">
-        Explore conteúdos exclusivos, ferramentas úteis e cursos para aprimorar seus conhecimentos e práticas.
-      </p>
-<div class="flex flex-col md:flex-row items-center justify-center gap-8">
-<!-- Analisador Button -->
-<a class="flex items-center justify-center space-x-4 bg-white text-black px-12 py-5 rounded shadow-2xl hover:bg-gray-100 transition-all min-w-[320px]" href="#">
-<svg class="w-10 h-10" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.183.244l-.28.19a2 2 0 00-.596.892L2.222 21.41a.5.5 0 00.477.653H21.3a.5.5 0 00.477-.653l-1.768-4.856a2 2 0 00-.58-.893l-.28-.192zM12 11V3m0 0l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
-<circle cx="12" cy="11" r="3" stroke-width="1.5"></circle>
-</svg>
-<span class="text-2xl font-bold tracking-tight">ANALISADOR</span>
-</a>
-<!-- Agende Button -->
-<a class="bg-brand-gold text-brand-navy px-12 py-5 rounded font-bold text-xl tracking-wider uppercase btn-gold-glow min-w-[320px]" href="#">
-          AGENDE SUA CONSULTA
-        </a>
-</div>
-</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CTA BOTTOM
+════════════════════════════════════════════════════════ -->
+<section style="position:relative;padding:9rem 2rem;overflow:hidden;text-align:center;">
+  <!-- Background image -->
+  <div style="position:absolute;inset:0;z-index:0;">
+    <img alt="Heavy training background" src="images/training-bg.jpg" style="width:100%;height:100%;object-fit:cover;opacity:0.25;"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(10,17,26,0.95) 0%, rgba(10,17,26,0.5) 100%);"></div>
+  </div>
+
+  <!-- Floating geometry -->
+  <svg aria-hidden="true" style="position:absolute;left:5%;top:50%;transform:translateY(-50%);opacity:0.06;" width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="90" fill="none" stroke="var(--gold)" stroke-width="0.6"/>
+    <circle cx="100" cy="100" r="60" fill="none" stroke="var(--gold)" stroke-width="0.4"/>
+  </svg>
+
+  <div style="position:relative;z-index:2;max-width:760px;margin:0 auto;">
+    <div style="width:40px;height:1px;background:var(--gold);margin:0 auto 2.5rem;opacity:0.6;"></div>
+    <h3 class="cta-section-title" style="margin-bottom:1.5rem;">Outros Conteúdos &amp; Ferramentas</h3>
+    <p class="cta-section-body" style="margin-bottom:4rem;">
+      Explore conteúdos exclusivos, ferramentas úteis e cursos<br/>
+      para aprimorar seus conhecimentos e práticas.
+    </p>
+    <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+      <a class="btn-white" href="#">
+        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.183.244l-.28.19a2 2 0 00-.596.892L2.222 21.41a.5.5 0 00.477.653H21.3a.5.5 0 00.477-.653l-1.768-4.856a2 2 0 00-.58-.893l-.28-.192zM12 11V3m0 0l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+          <circle cx="12" cy="11" r="3" stroke-width="1.5"/>
+        </svg>
+        <span>Analisador</span>
+      </a>
+      <a class="btn-gold" href="#">
+        Agende Sua Consulta
+      </a>
+    </div>
+  </div>
 </section>
-<!-- END: ConversionSection -->
-<!-- BEGIN: Footer -->
-<footer class="bg-brand-dark-blue py-12 border-t border-white/5" data-purpose="footer">
-<div class="container mx-auto px-4">
-<div class="flex flex-col items-center justify-center text-center space-y-8">
-<div class="text-brand-gold font-bold text-2xl uppercase tracking-tighter">LUZ PERFORMANCE</div>
-<div class="flex space-x-8 text-[10px] font-bold tracking-[0.2em] text-gray-500 uppercase">
-<a class="hover:text-brand-gold transition-colors" href="#">Copyright © 2026 Vinicius Luzardi Lopes</a>
-<span class="text-gray-800">|</span>
-<a class="hover:text-brand-gold transition-colors" href="#">Política de Privacidade</a>
-</div>
-<div class="flex space-x-6">
-<a class="text-gray-500 hover:text-brand-gold transition-colors" href="#">
-<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-</a>
-<a class="text-gray-500 hover:text-brand-gold transition-colors" href="#">
-<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
-</a>
-</div>
-</div>
-</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════ -->
+<footer>
+  <div style="max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;flex-direction:column;align-items:center;gap:2rem;text-align:center;">
+    <div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+    <div class="footer-logo">Luz Performance</div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <a class="footer-link" href="#">Copyright © 2026 Vinicius Luzardi Lopes</a>
+      <span style="color:rgba(255,255,255,0.1);font-size:10px;">|</span>
+      <a class="footer-link" href="#">Política de Privacidade</a>
+    </div>
+    <div style="display:flex;gap:1.5rem;">
+      <a class="footer-social" href="#" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a class="footer-social" href="#" aria-label="YouTube">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+      </a>
+    </div>
+  </div>
 </footer>
-<!-- END: Footer -->
-</body></html>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCROLL REVEAL (Intersection Observer)
+════════════════════════════════════════════════════════ -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.feature-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s`;
+    observer.observe(el);
+  });
+
+  // Doctor section reveal
+  document.querySelectorAll('[data-purpose="about-me"] > div > div').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transition = `opacity 1s cubic-bezier(0.16,1,0.3,1) ${i * 0.2}s`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
