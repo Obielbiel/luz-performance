@@ -472,7 +472,8 @@
   /* ─── Floating geo shape ─────────────────────────────── */
   .float-shape {
     animation: float 7s ease-in-out infinite;
-    opacity: 0.08;
+    opacity: 0.22;
+    filter: drop-shadow(0 0 10px rgba(197,160,89,0.35)) drop-shadow(0 0 24px rgba(197,160,89,0.15));
   }
 
   /* ─── Responsive utils ──────────────────────────────── */
@@ -753,28 +754,35 @@
      SCROLL REVEAL (Intersection Observer)
 ════════════════════════════════════════════════════════ -->
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+  // ─── Scroll Reveal: repete toda vez que o elemento entra/sai da tela ───
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        // Elemento entrou na tela: anima para visível
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
+      } else {
+        // Elemento saiu da tela: reseta para o estado inicial
+        entry.target.style.opacity = '0';
+        const isCard = entry.target.classList.contains('feature-card');
+        entry.target.style.transform = isCard ? 'translateY(24px)' : 'translateY(0)';
       }
     });
   }, { threshold: 0.12 });
 
+  // Feature Cards
   document.querySelectorAll('.feature-card').forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
     el.style.transition = `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s`;
-    observer.observe(el);
+    revealObserver.observe(el);
   });
 
   // Doctor section reveal
   document.querySelectorAll('[data-purpose="about-me"] > div > div').forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transition = `opacity 1s cubic-bezier(0.16,1,0.3,1) ${i * 0.2}s`;
-    observer.observe(el);
+    revealObserver.observe(el);
   });
 </script>
 
